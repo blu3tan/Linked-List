@@ -22,8 +22,21 @@ class LinkedList {
 		return console.log(current);
 	}
 
-	// Return the node at given index
-	nodeAtIndex(index) {
+	// Remove the last node
+	popNode() {
+		if (!this.head) return console.log('This list is empty');
+		let current = this.head;
+		let previous;
+		while (current.next !== null) {
+			previous = current;
+			current = current.next;
+		}
+		previous.next = null;
+		this.size--;
+	}
+
+	// Return the value at given index
+	valueAtIndex(index) {
 		let current = this.head;
 		if (!this.head) return console.log('This list is empty');
 		if (index < 0) return console.log('Negative index not allowed');
@@ -35,6 +48,22 @@ class LinkedList {
 			current = current.next;
 		}
 		return console.log(`The value at index ${index} is ${current.value}`);
+	}
+
+	//Find the index of a given value
+	find(value) {
+		let current = this.head;
+		let index = 0;
+		while (current.next !== null) {
+			let nodeValue = current.value;
+			if (nodeValue == value)
+				return console.log(`${value} is at index ${index}`);
+			current = current.next;
+			index++;
+		}
+		let nodeValue = current.value;
+		if (nodeValue == value) return console.log(`${value} is at index ${index}`);
+		return console.log(null);
 	}
 
 	// Prepend a new node at the start
@@ -56,6 +85,19 @@ class LinkedList {
 		}
 		current.next = new Node(value);
 		this.size++;
+	}
+
+	//Check if a particular value is in the list
+	listContains(value) {
+		let current = this.head;
+		while (current.next !== null) {
+			let nodeValue = current.value;
+			if (nodeValue == value) return console.log(true);
+			current = current.next;
+		}
+		let nodeValue = current.value;
+		if (nodeValue == value) return console.log(true);
+		return console.log(false);
 	}
 
 	// Print a string with the nodes values
@@ -81,9 +123,6 @@ testLinkedList.prepend(100);
 testLinkedList.prepend(200);
 testLinkedList.append(500);
 testLinkedList.prepend(600);
-
 testLinkedList.toString();
-testLinkedList.headNode();
-testLinkedList.tailNode();
-testLinkedList.listSize();
-testLinkedList.nodeAtIndex(3);
+
+testLinkedList.find(700);
