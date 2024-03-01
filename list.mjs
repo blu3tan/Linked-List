@@ -116,13 +116,44 @@ class LinkedList {
 	listSize() {
 		console.log(`This list has ${this.size} nodes`);
 	}
+
+	// Inserts a new node with the provided value at the given index
+	insertAt(value, index) {
+		let current = this.head;
+		let previous;
+		let listIndex = 0;
+		if (index == 0) {
+			this.head = new Node(value);
+			let newHead = this.head;
+			newHead.next = current;
+			this.size++;
+		}
+		while (listIndex < index) {
+			previous = current;
+			current = current.next;
+			listIndex++;
+		}
+		let newNode = new Node(value);
+		newNode.next = current;
+		previous.next = newNode;
+		this.size++;
+	}
+
+	// Remove the node at given index
+	removeAt(index) {
+		let current = this.head;
+		let previous;
+		let listIndex = 0;
+		if (index == 0) {
+			this.head = current.next;
+			this.size--;
+		}
+		while (listIndex < index) {
+			previous = current;
+			current = current.next;
+			listIndex++;
+		}
+		previous.next = current.next;
+		this.size--;
+	}
 }
-
-const testLinkedList = new LinkedList();
-testLinkedList.prepend(100);
-testLinkedList.prepend(200);
-testLinkedList.append(500);
-testLinkedList.prepend(600);
-testLinkedList.toString();
-
-testLinkedList.find(700);
